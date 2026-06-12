@@ -28,27 +28,13 @@ Red Anaconda is an open-source OSINT (Open Source Intelligence) tool that aggreg
 
 ---
 
-## 🚀 Installation
+## 🚀 How to run it
 
-### Option 1 — Run locally (Mac / Windows / Linux)
+### Option 1 — Run locally (Mac)
 ```bash
-# 1. Clone the repo
-git clone https://github.com/azerkash/red-anaconda.git
-
-# 2. Open the file in your browser
-open index.html        # Mac
-start index.html       # Windows
-xdg-open index.html    # Linux
-```
-No server needed. No dependencies. Just open the HTML file.
-
-### Option 2 — GitHub Pages (online)
-1. Fork this repo
-2. Go to **Settings → Pages**
-3. Select **Branch: main** → Save
-4. Your site is live at `https://your-username.github.io/red-anaconda`
-
----
+git clone https://github.com/ndwrr94wfj-tech/Red-anaconda.git
+cd Red-anaconda/red-anaconda
+open index.html
 
 ## 📁 Files
 
@@ -87,3 +73,4 @@ MIT License — free to use, modify, and distribute with attribution.
 ---
 
 *Red Anaconda — made by azerkash*
+i will make a new version soon
