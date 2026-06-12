@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Red Anaconda — OSINT Suite</title>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Rajdhani:wght@400;600;700&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{width:100%;min-height:100%;background:#080608;color:#e8dada;font-family:'Rajdhani',sans-serif;overflow-x:hidden;}
+#starfield{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;pointer-events:none;}
+.wrap{position:relative;z-index:10;max-width:980px;margin:0 auto;padding:0 24px 80px;}
+header{text-align:center;padding:60px 0 32px;}
+.logo-svg{display:block;margin:0 auto 16px;width:110px;height:150px;filter:drop-shadow(0 0 8px rgba(226,75,74,0.5));}
+h1{font-size:44px;font-weight:700;letter-spacing:6px;color:#E24B4A;text-transform:uppercase;line-height:1;}
+.tagline{font-family:'Share Tech Mono',monospace;font-size:12px;letter-spacing:3px;color:#378ADD;margin-top:8px;}
+.made-by{font-family:'Share Tech Mono',monospace;font-size:10px;color:#4a3a3a;margin-top:6px;letter-spacing:2px;}
+.made-by span{color:#9b5a5a;}
+.disclaimer{background:#0a0608;border:1px solid #2a1020;border-radius:8px;padding:11px 16px;margin-bottom:22px;font-family:'Share Tech Mono',monospace;font-size:11px;color:#5a4050;line-height:1.7;text-align:center;}
+.disclaimer span{color:#c05060;}
+.tabs{display:flex;justify-content:center;flex-wrap:wrap;gap:2px;margin-bottom:28px;border-bottom:1px solid #1e0d0d;padding-bottom:0;}
+.tab{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;padding:9px 14px;border:none;background:transparent;color:#5a4040;cursor:pointer;border-bottom:2px solid transparent;transition:all .15s;}
+.tab:hover{color:#c0a0a0;}
+.tab.active{color:#E24B4A;border-bottom:2px solid #E24B4A;}
+.tab-content{display:none;}
+.tab-content.active{display:block;}
+.panel{background:#0e0909;border:1px solid #2a1212;border-radius:12px;padding:20px;margin-bottom:14px;}
+.panel-title{font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:2px;color:#378ADD;text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
+.panel-title::before{content:'';display:inline-block;width:3px;height:12px;background:#E24B4A;border-radius:2px;}
+.input-row{display:flex;gap:10px;margin-bottom:10px;}
+.ra-input{flex:1;background:#080608;border:1px solid #2a1222;border-radius:8px;padding:10px 14px;font-family:'Share Tech Mono',monospace;font-size:13px;color:#e8dada;outline:none;transition:border .15s;}
+.ra-input:focus{border-color:#E24B4A;}
+.ra-input::placeholder{color:#3a2a2a;}
+select.ra-input{cursor:pointer;}
+.btn{font-family:'Rajdhani',sans-serif;font-weight:600;font-size:13px;letter-spacing:1px;text-transform:uppercase;padding:10px 20px;border:1px solid #5a1a1a;border-radius:8px;background:#150505;color:#E24B4A;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.btn:hover{background:#200808;border-color:#E24B4A;}
+.btn.blue{border-color:#1a3a5a;background:#050810;color:#378ADD;}
+.btn.blue:hover{background:#08101a;border-color:#378ADD;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px;}
+.tag{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:11px;padding:3px 10px;border-radius:5px;margin:3px 3px 3px 0;cursor:pointer;border:1px solid;transition:all .1s;}
+.tag.red{background:#100404;border-color:#3a1010;color:#E24B4A;}.tag.red:hover{border-color:#E24B4A;}
+.tag.blue{background:#040810;border-color:#103040;color:#378ADD;}.tag.blue:hover{border-color:#378ADD;}
+.tag.purple{background:#0a0618;border-color:#3a2060;color:#9b7fe8;}
+.tag.green{background:#040e08;border-color:#0a3020;color:#1D9E75;}.tag.green:hover{border-color:#1D9E75;}
+.output{background:#050405;border:1px solid #1a1018;border-radius:8px;padding:14px;font-family:'Share Tech Mono',monospace;font-size:12px;line-height:1.9;min-height:100px;white-space:pre-wrap;word-break:break-all;overflow-y:auto;}
+.log-info{color:#378ADD;}.log-ok{color:#1D9E75;}.log-warn{color:#EF9F27;}.log-err{color:#E24B4A;}
+.log-dim{color:#3a3a3a;}.log-data{color:#c8b8b8;}.log-head{color:#9b7fe8;}.log-link{color:#378ADD;text-decoration:underline;}
+.result-card{background:#0a0608;border:1px solid #2a1520;border-radius:8px;padding:14px;margin-bottom:10px;}
+.result-row{display:flex;gap:8px;padding:5px 0;border-bottom:1px solid #160810;font-size:13px;align-items:flex-start;}
+.result-row:last-child{border-bottom:none;}
+.result-key{color:#5a4a6a;min-width:150px;font-family:'Share Tech Mono',monospace;font-size:11px;flex-shrink:0;padding-top:2px;}
+.result-val{color:#c8b8c8;word-break:break-word;}
+.result-val a{color:#378ADD;text-decoration:none;border-bottom:1px solid #1a3a5a;}
+.result-val a:hover{color:#5aaCFF;border-bottom-color:#378ADD;}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;}
+@media(max-width:700px){.grid2,.grid3,.grid4{grid-template-columns:1fr 1fr;}.input-row{flex-direction:column;}}
+@media(max-width:480px){.grid2,.grid3,.grid4{grid-template-columns:1fr;}}
+.stat-box{background:#0a0608;border:1px solid #2a1520;border-radius:8px;padding:14px;text-align:center;}
+.stat-val{font-size:20px;font-weight:600;color:#E24B4A;font-family:'Share Tech Mono',monospace;line-height:1.2;}
+.stat-label{font-family:'Share Tech Mono',monospace;font-size:10px;color:#5a4050;margin-top:5px;letter-spacing:1px;text-transform:uppercase;}
+.stat-sub{font-family:'Share Tech Mono',monospace;font-size:11px;color:#8a6a7a;margin-top:3px;}
+.badge{display:inline-block;font-family:'Share Tech Mono',monospace;font-size:10px;padding:2px 8px;border-radius:4px;}
+.badge.ok{background:#041208;border:1px solid #0a3020;color:#1D9E75;}
+.badge.warn{background:#120c04;border:1px solid #3a2a08;color:#EF9F27;}
+.badge.err{background:#120404;border:1px solid #3a0808;color:#E24B4A;}
+.badge.info{background:#040810;border:1px solid #0a2040;color:#378ADD;}
+.section-head{font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:2px;color:#5a4060;text-transform:uppercase;padding:8px 0 4px;border-top:1px solid #1a0e1a;margin-top:4px;}
+.section-head:first-child{border-top:none;margin-top:0;padding-top:0;}
+.spin{display:inline-block;width:11px;height:11px;border:2px solid #2a1212;border-top:2px solid #E24B4A;border-radius:50%;animation:spin .7s linear infinite;vertical-align:middle;margin-right:6px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+.threat-bar{height:6px;background:#1a0a0a;border-radius:3px;margin-top:6px;overflow:hidden;}
+.threat-fill{height:100%;border-radius:3px;transition:width .6s;}
+footer{text-align:center;padding:40px 0 20px;font-family:'Share Tech Mono',monospace;font-size:10px;color:#2a1a1a;letter-spacing:2px;}
+footer span{color:#4a2a2a;}
+</style>
+</head>
+<body>
+<canvas id="starfield"></canvas>
+
+<div class="wrap">
+
+<header>
+  <svg class="logo-svg" viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- BODY base - coiled cobra rising up -->
+    <!-- Tail coil bottom -->
+    <ellipse cx="105" cy="255" rx="52" ry="18" fill="#1a0505" stroke="#E24B4A" stroke-width="1.2"/>
+    <ellipse cx="105" cy="255" rx="38" ry="11" fill="#0a0202"/>
+    <!-- scale details tail -->
+    <path d="M68 252 Q75 248 82 252 Q89 248 96 252 Q103 248 110 252 Q117 248 124 252 Q131 248 138 252 Q145 248 152 252" stroke="#E24B4A" stroke-width=".7" fill="none" opacity=".6"/>
+    <path d="M72 258 Q79 254 86 258 Q93 254 100 258 Q107 254 114 258 Q121 254 128 258 Q135 254 142 258" stroke="#E24B4A" stroke-width=".7" fill="none" opacity=".4"/>
+
+    <!-- Lower body left side rising -->
+    <path d="M62 248 C52 235 44 218 46 200 C48 182 56 168 58 150 C60 132 52 118 48 100" fill="#1a0505" stroke="#E24B4A" stroke-width="1"/>
+    <!-- Lower body right side -->
+    <path d="M148 248 C158 232 162 215 158 197 C154 179 144 165 140 148 C136 131 142 116 148 98" fill="#1a0505" stroke="#E24B4A" stroke-width="1"/>
+    <!-- Body fill between sides -->
+    <path d="M62 248 C52 235 44 218 46 200 C48 182 56 168 58 150 C60 132 52 118 48 100 C52 92 60 88 70 90 C80 92 88 98 92 108 C96 118 95 132 97 148 C99 164 104 178 108 190 C112 202 118 212 122 222 C128 235 138 244 148 248 C142 255 125 260 105 260 C85 260 68 255 62 248Z" fill="#120303"/>
+
+    <!-- Body scales pattern -->
+    <path d="M55 240 L65 236 L58 230 Z" fill="#E24B4A" opacity=".5"/>
+    <path d="M140 236 L150 240 L143 230 Z" fill="#E24B4A" opacity=".5"/>
+    <path d="M50 215 L62 210 L54 203 Z" fill="#E24B4A" opacity=".5"/>
+    <path d="M145 208 L157 213 L150 203 Z" fill="#E24B4A" opacity=".5"/>
+    <path d="M48 190 L60 185 L52 178 Z" fill="#E24B4A" opacity=".45"/>
+    <path d="M145 183 L157 188 L150 178 Z" fill="#E24B4A" opacity=".45"/>
+    <path d="M50 165 L62 160 L54 153 Z" fill="#E24B4A" opacity=".4"/>
+    <path d="M140 158 L152 163 L144 153 Z" fill="#E24B4A" opacity=".4"/>
+
+    <!-- Belly plates -->
+    <rect x="72" y="230" width="56" height="5" rx="2" fill="#2a0808" opacity=".8"/>
+    <rect x="74" y="218" width="52" height="5" rx="2" fill="#2a0808" opacity=".7"/>
+    <rect x="76" y="206" width="48" height="5" rx="2" fill="#2a0808" opacity=".7"/>
+    <rect x="78" y="194" width="44" height="5" rx="2" fill="#2a0808" opacity=".65"/>
+    <rect x="80" y="182" width="40" height="5" rx="2" fill="#2a0808" opacity=".6"/>
+    <rect x="82" y="170" width="36" height="5" rx="2" fill="#2a0808" opacity=".55"/>
+    <rect x="84" y="158" width="32" height="5" rx="2" fill="#2a0808" opacity=".5"/>
+    <rect x="86" y="146" width="28" height="5" rx="2" fill="#2a0808" opacity=".45"/>
+
+    <!-- X marks on body -->
+    <path d="M76 225 L80 221 M80 225 L76 221" stroke="#E24B4A" stroke-width=".8" opacity=".5"/>
+    <path d="M118 225 L122 221 M122 225 L118 221" stroke="#E24B4A" stroke-width=".8" opacity=".5"/>
+    <path d="M74 200 L78 196 M78 200 L74 196" stroke="#E24B4A" stroke-width=".8" opacity=".5"/>
+    <path d="M118 198 L122 194 M122 198 L118 194" stroke="#E24B4A" stroke-width=".8" opacity=".5"/>
+    <path d="M76 175 L80 171 M80 175 L76 171" stroke="#E24B4A" stroke-width=".8" opacity=".45"/>
+    <path d="M116 173 L120 169 M120 173 L116 169" stroke="#E24B4A" stroke-width=".8" opacity=".45"/>
+
+    <!-- NECK narrowing going up -->
+    <path d="M48 100 C50 88 56 78 64 70 C70 64 78 60 88 58 C94 57 100 57 108 58 C118 60 126 65 132 72 C140 80 146 90 148 100 C142 105 130 108 108 108 C86 108 54 105 48 100Z" fill="#120303" stroke="#E24B4A" stroke-width="1"/>
+
+    <!-- HOOD / CAPUCHON - wide spread -->
+    <!-- Hood left wing -->
+    <path d="M64 70 C50 62 30 58 18 48 C8 40 4 28 10 18 C16 8 30 5 44 10 C56 15 64 26 68 38 C70 46 68 58 64 70Z" fill="#1a0404"/>
+    <path d="M64 70 C50 62 30 58 18 48 C8 40 4 28 10 18 C16 8 30 5 44 10 C56 15 64 26 68 38 C70 46 68 58 64 70Z" stroke="#E24B4A" stroke-width="1.2" fill="none"/>
+    <!-- Hood left ribs -->
+    <path d="M64 68 C55 60 40 55 28 48" stroke="#E24B4A" stroke-width=".8" opacity=".6"/>
+    <path d="M63 58 C54 50 38 44 24 38" stroke="#E24B4A" stroke-width=".8" opacity=".55"/>
+    <path d="M62 48 C54 42 40 36 28 30" stroke="#E24B4A" stroke-width=".8" opacity=".5"/>
+    <path d="M60 38 C52 32 40 26 32 22" stroke="#E24B4A" stroke-width=".8" opacity=".45"/>
+    <path d="M56 28 C48 23 38 18 30 16" stroke="#E24B4A" stroke-width=".7" opacity=".4"/>
+    <!-- Hood left spots -->
+    <ellipse cx="22" cy="44" rx="5" ry="8" fill="#2a0808" opacity=".7" transform="rotate(-20 22 44)"/>
+    <ellipse cx="34" cy="32" rx="4" ry="7" fill="#2a0808" opacity=".6" transform="rotate(-15 34 32)"/>
+    <ellipse cx="46" cy="22" rx="3" ry="5" fill="#2a0808" opacity=".5" transform="rotate(-10 46 22)"/>
+
+    <!-- Hood right wing -->
+    <path d="M132 72 C146 64 166 60 178 50 C188 42 192 30 186 20 C180 10 166 7 152 12 C140 17 132 28 128 40 C126 48 128 60 132 72Z" fill="#1a0404"/>
+    <path d="M132 72 C146 64 166 60 178 50 C188 42 192 30 186 20 C180 10 166 7 152 12 C140 17 132 28 128 40 C126 48 128 60 132 72Z" stroke="#E24B4A" stroke-width="1.2" fill="none"/>
+    <!-- Hood right ribs -->
+    <path d="M132 70 C141 62 156 57 168 50" stroke="#E24B4A" stroke-width=".8" opacity=".6"/>
+    <path d="M133 60 C142 52 158 46 172 40" stroke="#E24B4A" stroke-width=".8" opacity=".55"/>
+    <path d="M134 50 C142 44 156 38 168 32" stroke="#E24B4A" stroke-width=".8" opacity=".5"/>
+    <path d="M135 40 C143 34 156 28 164 24" stroke="#E24B4A" stroke-width=".8" opacity=".45"/>
+    <path d="M138 30 C146 25 158 20 166 18" stroke="#E24B4A" stroke-width=".7" opacity=".4"/>
+    <!-- Hood right spots -->
+    <ellipse cx="174" cy="46" rx="5" ry="8" fill="#2a0808" opacity=".7" transform="rotate(20 174 46)"/>
+    <ellipse cx="162" cy="34" rx="4" ry="7" fill="#2a0808" opacity=".6" transform="rotate(15 162 34)"/>
+    <ellipse cx="150" cy="24" rx="3" ry="5" fill="#2a0808" opacity=".5" transform="rotate(10 150 24)"/>
+
+    <!-- HEAD -->
+    <path d="M68 38 C66 28 68 18 76 12 C84 6 96 4 108 5 C120 6 132 10 138 18 C144 26 142 36 138 44 C134 52 126 56 118 58 C110 60 96 60 88 58 C78 56 70 48 68 38Z" fill="#1c0404"/>
+    <path d="M68 38 C66 28 68 18 76 12 C84 6 96 4 108 5 C120 6 132 10 138 18 C144 26 142 36 138 44 C134 52 126 56 118 58 C110 60 96 60 88 58 C78 56 70 48 68 38Z" stroke="#E24B4A" stroke-width="1.4" fill="none"/>
+
+    <!-- Head scales -->
+    <path d="M78 20 C85 16 95 14 108 14 C118 14 128 17 134 22" stroke="#E24B4A" stroke-width=".7" opacity=".5" fill="none"/>
+    <path d="M74 30 C80 25 90 22 108 22 C122 22 132 26 138 31" stroke="#E24B4A" stroke-width=".7" opacity=".5" fill="none"/>
+
+    <!-- Eyes -->
+    <ellipse cx="86" cy="28" rx="7" ry="7" fill="#0a0202" stroke="#E24B4A" stroke-width="1.2"/>
+    <ellipse cx="86" cy="28" rx="3.5" ry="5" fill="#E24B4A" opacity=".9"/>
+    <ellipse cx="86" cy="28" rx="1.5" ry="3" fill="#050101"/>
+    <ellipse cx="87" cy="27" rx=".8" ry=".8" fill="#ff8888" opacity=".6"/>
+
+    <ellipse cx="126" cy="28" rx="7" ry="7" fill="#0a0202" stroke="#E24B4A" stroke-width="1.2"/>
+    <ellipse cx="126" cy="28" rx="3.5" ry="5" fill="#E24B4A" opacity=".9"/>
+    <ellipse cx="126" cy="28" rx="1.5" ry="3" fill="#050101"/>
+    <ellipse cx="127" cy="27" rx=".8" ry=".8" fill="#ff8888" opacity=".6"/>
+
+    <!-- Nostril slits -->
+    <path d="M96 18 C98 16 100 17 100 19" stroke="#E24B4A" stroke-width=".8" fill="none"/>
+    <path d="M110 19 C111 17 113 16 114 18" stroke="#E24B4A" stroke-width=".8" fill="none"/>
+
+    <!-- Open jaw / mouth -->
+    <path d="M76 48 C80 56 90 62 108 62 C124 62 134 56 138 48" fill="#300505" stroke="#E24B4A" stroke-width="1.2"/>
+    <!-- Upper teeth -->
+    <path d="M82 50 L80 58 L84 52" fill="#e8e0e0" stroke="none"/>
+    <path d="M90 52 L89 60 L93 53" fill="#e8e0e0" stroke="none"/>
+    <path d="M98 53 L97 62 L101 54" fill="#e8e0e0" stroke="none"/>
+    <path d="M106 53 L105 62 L109 54" fill="#e8e0e0" stroke="none"/>
+    <path d="M114 52 L114 61 L117 53" fill="#e8e0e0" stroke="none"/>
+    <path d="M122 50 L122 58 L126 52" fill="#e8e0e0" stroke="none"/>
+    <!-- Fangs -->
+    <path d="M78 48 L74 64 L82 50Z" fill="#e8dada" stroke="#E24B4A" stroke-width=".5"/>
+    <path d="M134 48 L136 64 L128 50Z" fill="#e8dada" stroke="#E24B4A" stroke-width=".5"/>
+    <!-- Venom drop -->
+    <ellipse cx="74" cy="66" rx="2" ry="3" fill="#378ADD" opacity=".8"/>
+    <ellipse cx="136" cy="66" rx="2" ry="3" fill="#378ADD" opacity=".8"/>
+
+    <!-- Tongue forked -->
+    <path d="M100 62 C102 68 104 72 106 76 C108 72 110 68 112 62" stroke="#E24B4A" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+    <path d="M106 76 L102 84" stroke="#E24B4A" stroke-width="1" stroke-linecap="round"/>
+    <path d="M106 76 L110 84" stroke="#E24B4A" stroke-width="1" stroke-linecap="round"/>
+
+    <!-- Glow effect overlay -->
+    <path d="M64 70 C50 62 30 58 18 48 C8 40 4 28 10 18 C16 8 30 5 44 10 C56 15 64 26 68 38 C70 46 68 58 64 70Z" stroke="#ff6666" stroke-width=".5" fill="none" opacity=".3"/>
+    <path d="M132 72 C146 64 166 60 178 50 C188 42 192 30 186 20 C180 10 166 7 152 12 C140 17 132 28 128 40 C126 48 128 60 132 72Z" stroke="#ff6666" stroke-width=".5" fill="none" opacity=".3"/>
+  </svg>
+  <h1>Red Anaconda</h1>
+  <div class="tagline">OSINT INTELLIGENCE SUITE // v3.2.0</div>
+  <div class="made-by">made by <span>azerkash</span></div>
+</header>
+
+<div class="disclaimer">
+  <span>⚠ FOR EDUCATIONAL &amp; RESEARCH PURPOSES ONLY</span><br/>
+  All data sourced from public records only. Obtain proper legal authorization before investigating any individual.
+</div>
+
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('osint',this)">👤 Full Name</button>
+  <button class="tab" onclick="switchTab('ip',this)">🌐 IP Lookup</button>
+  <button class="tab" onclick="switchTab('domain',this)">🔍 Domain</button>
+  <button class="tab" onclick="switchTab('phone',this)">📞 Phone</button>
+  <button class="tab" onclick="switchTab('username',this)">🎭 Username</button>
+  <button class="tab" onclick="switchTab('email',this)">✉ Email</button>
+  <button class="tab" onclick="switchTab('dorks',this)">⚡ Dorks</button>
+</div>
+
+<!-- ══ FULL NAME ══ -->
+<div class="tab-content active" id="tab-osint">
+  <div class="panel">
+    <div class="panel-title">Search by Full Name</div>
+    <div class="input-row">
+      <input class="ra-input" id="osint-fn" placeholder="First name..."/>
+      <input class="ra-input" id="osint-ln" placeholder="Last name..."/>
+    </div>
+    <div class="input-row">
+      <input class="ra-input" id="osint-country" placeholder="Country (optional)"/>
+      <input class="ra-input" id="osint-city" placeholder="City (optional)"/>
+    </div>
+    <div class="btn-row">
+      <button class="btn" onclick="runOSINT()">Search ↗</button>
+      <button class="btn blue" onclick="document.getElementById('osint-results').innerHTML=''">Clear</button>
+    </div>
+  </div>
+  <div id="osint-results"></div>
+</div>
+
+<!-- ══ IP LOOKUP ══ -->
+<div class="tab-content" id="tab-ip">
+  <div class="panel">
+    <div class="panel-title">IP Address Intelligence</div>
+    <div class="input-row">
+      <input class="ra-input" id="ip-input" placeholder="e.g. 8.8.8.8"/>
+      <button class="btn" onclick="runIP()">Lookup ↗</button>
+    </div>
+    <div>
+      <span class="tag blue" onclick="document.getElementById('ip-input').value='8.8.8.8'">8.8.8.8</span>
+      <span class="tag blue" onclick="document.getElementById('ip-input').value='1.1.1.1'">1.1.1.1</span>
+      <span class="tag red" onclick="fetchMyIP()">My IP</span>
+    </div>
+  </div>
+  <div id="ip-results"></div>
+</div>
+
+<!-- ══ DOMAIN ══ -->
+<div class="tab-content" id="tab-domain">
+  <div class="panel">
+    <div class="panel-title">Domain / WHOIS Intelligence</div>
+    <div class="input-row">
+      <input class="ra-input" id="domain-input" placeholder="e.g. google.com"/>
+      <button class="btn" onclick="runDomain()">Analyze ↗</button>
+    </div>
+    <div>
+      <span class="tag blue" onclick="document.getElementById('domain-input').value='google.com'">google.com</span>
+      <span class="tag blue" onclick="document.getElementById('domain-input').value='github.com'">github.com</span>
+      <span class="tag red" onclick="document.getElementById('domain-input').value='shodan.io'">shodan.io</span>
+    </div>
+  </div>
+  <div id="domain-results"></div>
+</div>
+
+<!-- ══ PHONE ══ -->
+<div class="tab-content" id="tab-phone">
+  <div class="panel">
+    <div class="panel-title">Phone Number Intelligence</div>
+    <div class="input-row">
+      <input class="ra-input" id="phone-input" placeholder="e.g. +33612345678"/>
+      <button class="btn" onclick="runPhone()">Analyze ↗</button>
+    </div>
+    <div>
+      <span class="tag blue" onclick="document.getElementById('phone-input').value='+33612345678'">FR</span>
+      <span class="tag blue" onclick="document.getElementById('phone-input').value='+15550001234'">US</span>
+      <span class="tag blue" onclick="document.getElementById('phone-input').value='+447911123456'">UK</span>
+    </div>
+  </div>
+  <div id="phone-results"></div>
+</div>
+
+<!-- ══ USERNAME ══ -->
+<div class="tab-content" id="tab-username">
+  <div class="panel">
+    <div class="panel-title">Username Lookup — 55+ Platforms</div>
+    <div class="input-row">
+      <input class="ra-input" id="uname-input" placeholder="username..."/>
+      <button class="btn" onclick="runUsername()">Check ↗</button>
+    </div>
+    <div>
+      <span class="tag blue" onclick="document.getElementById('uname-input').value='johndoe'">johndoe</span>
+      <span class="tag red" onclick="document.getElementById('uname-input').value='azerkash'">azerkash</span>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Results</div>
+    <div class="output" id="uname-output" style="max-height:440px;"><span class="log-dim">// Enter a username to check 55+ platforms...</span></div>
+  </div>
+</div>
+
+<!-- ══ EMAIL ══ -->
+<div class="tab-content" id="tab-email">
+  <div class="panel">
+    <div class="panel-title">Email Intelligence</div>
+    <div class="input-row">
+      <input class="ra-input" id="email-input" placeholder="target@example.com"/>
+      <button class="btn" onclick="runEmail()">Analyze ↗</button>
+    </div>
+  </div>
+  <div id="email-results"></div>
+</div>
+
+<!-- ══ DORKS ══ -->
+<div class="tab-content" id="tab-dorks">
+  <div class="panel">
+    <div class="panel-title">Google Dork Generator</div>
+    <div class="input-row">
+      <input class="ra-input" id="dork-input" placeholder="Name, company, domain..."/>
+      <button class="btn" onclick="runDorks()">Generate ↗</button>
+    </div>
+    <div>
+      <span class="tag red" onclick="document.getElementById('dork-input').value='Elon Musk'">Person</span>
+      <span class="tag blue" onclick="document.getElementById('dork-input').value='tesla.com'">Domain</span>
+      <span class="tag purple" onclick="document.getElementById('dork-input').value='OpenAI'">Company</span>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-title">Dork Queries</div>
+    <div class="output" id="dork-output" style="max-height:520px;"><span class="log-dim">// Enter a target...</span></div>
+  </div>
+</div>
+
+</div>
+<footer>RED ANACONDA &copy; 2025 — <span>MADE BY AZERKASH</span> — OSINT / EDUCATIONAL USE ONLY</footer>
+
+<script>
+// ── STARFIELD ──
+const canvas=document.getElementById('starfield'),ctx=canvas.getContext('2d');
+let W,H,stars=[],mouse={x:-9999,y:-9999};
+function resize(){W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight;}
+function initStars(){stars=[];for(let i=0;i<180;i++)stars.push({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.22,vy:(Math.random()-.5)*.22,r:Math.random()*1.4+.4,o:Math.random()*.7+.3});}
+function drawStars(){
+  ctx.clearRect(0,0,W,H);
+  for(let i=0;i<stars.length;i++){
+    for(let j=i+1;j<stars.length;j++){
+      const dx=stars[i].x-stars[j].x,dy=stars[i].y-stars[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<115){ctx.strokeStyle=`rgba(226,75,74,${(1-d/115)*.15})`;ctx.lineWidth=.5;ctx.beginPath();ctx.moveTo(stars[i].x,stars[i].y);ctx.lineTo(stars[j].x,stars[j].y);ctx.stroke();}
+    }
+    const mx=stars[i].x-mouse.x,my=stars[i].y-mouse.y,md=Math.sqrt(mx*mx+my*my);
+    if(md<180){
+      const a=(1-md/180)*.65;
+      const g=ctx.createLinearGradient(stars[i].x,stars[i].y,mouse.x,mouse.y);
+      g.addColorStop(0,`rgba(226,75,74,${a})`);g.addColorStop(1,`rgba(55,138,221,${a*.5})`);
+      ctx.strokeStyle=g;ctx.lineWidth=.9;ctx.beginPath();ctx.moveTo(stars[i].x,stars[i].y);ctx.lineTo(mouse.x,mouse.y);ctx.stroke();
+    }
+  }
+  for(const s of stars){ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle=`rgba(240,200,200,${s.o})`;ctx.fill();s.x+=s.vx;s.y+=s.vy;if(s.x<0)s.x=W;if(s.x>W)s.x=0;if(s.y<0)s.y=H;if(s.y>H)s.y=0;}
+  requestAnimationFrame(drawStars);
+}
+window.addEventListener('mousemove',e=>{mouse.x=e.clientX;mouse.y=e.clientY;});
+window.addEventListener('resize',()=>{resize();initStars();});
+resize();initStars();drawStars();
+
+function switchTab(id,btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  btn.classList.add('active');
+}
+function esc(s){return String(s||'—').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function val(v){return v&&v!=='null'&&v!=='undefined'?v:'—';}
+
+// ══ IP LOOKUP ══
+async function runIP(){
+  const ip=document.getElementById('ip-input').value.trim();
+  if(!ip){alert('Enter an IP address.');return;}
+  const r=document.getElementById('ip-results');
+  r.innerHTML=`<div class="panel"><div class="panel-title"><span class="spin"></span>Analyzing ${esc(ip)}...</div></div>`;
+  try{
+    const res=await fetch(`https://ipapi.co/${ip}/json/`);
+    const d=await res.json();
+    if(d.error){r.innerHTML=`<div class="panel"><span class="log-err">[!] ${esc(d.reason||'Invalid IP or rate limit reached')}</span></div>`;return;}
+    const flag=d.country_code?`https://flagcdn.com/24x18/${d.country_code.toLowerCase()}.png`:'';
+    r.innerHTML=`
+    <div class="grid4" style="margin-bottom:14px;">
+      <div class="stat-box">
+        <div class="stat-val">${esc(d.country_code||'?')}</div>
+        ${flag?`<img src="${flag}" style="margin:4px auto;display:block;" alt="${esc(d.country_name)}"/>`:''}
+        <div class="stat-label">Country</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" style="font-size:14px;">${esc(d.city||'—')}</div>
+        <div class="stat-sub">${esc(d.region||'')}</div>
+        <div class="stat-label">Location</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" style="font-size:13px;">${esc((d.org||'—').substring(0,18))}</div>
+        <div class="stat-sub">${esc(d.asn||'')}</div>
+        <div class="stat-label">ISP / ASN</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-val" style="font-size:13px;">${d.latitude?d.latitude.toFixed(3):'—'}</div>
+        <div class="stat-sub">${d.longitude?d.longitude.toFixed(3):''}</div>
+        <div class="stat-label">Coordinates</div>
+      </div>
+    </div>
+
+    <div class="grid2" style="margin-bottom:14px;">
+      <div class="panel" style="margin-bottom:0;">
+        <div class="panel-title">Network Info</div>
+        <div class="result-card">
+          <div class="result-row"><span class="result-key">IP Address</span><span class="result-val">${esc(d.ip)}</span></div>
+          <div class="result-row"><span class="result-key">Version</span><span class="result-val">${esc(d.version||'IPv4')}</span></div>
+          <div class="result-row"><span class="result-key">ASN</span><span class="result-val">${esc(d.asn||'—')}</span></div>
+          <div class="result-row"><span class="result-key">ISP / Org</span><span class="result-val">${esc(d.org||'—')}</span></div>
+          <div class="result-row"><span class="result-key">Network</span><span class="result-val">${esc(d.network||'—')}</span></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-bottom:0;">
+        <div class="panel-title">Geolocation</div>
+        <div class="result-card">
+          <div class="result-row"><span class="result-key">Country</span><span class="result-val">${esc(d.country_name||'—')} (${esc(d.country_code||'')})</span></div>
+          <div class="result-row"><span class="result-key">Region</span><span class="result-val">${esc(d.region||'—')} (${esc(d.region_code||'')})</span></div>
+          <div class="result-row"><span class="result-key">City</span><span class="result-val">${esc(d.city||'—')}</span></div>
+          <div class="result-row"><span class="result-key">Postal</span><span class="result-val">${esc(d.postal||'—')}</span></div>
+          <div class="result-row"><span class="result-key">Timezone</span><span class="result-val">${esc(d.timezone||'—')}</span></div>
+          <div class="result-row"><span class="result-key">UTC Offset</span><span class="result-val">${esc(d.utc_offset||'—')}</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Country Details</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">Capital</span><span class="result-val">${esc(d.country_capital||'—')}</span></div>
+        <div class="result-row"><span class="result-key">Population</span><span class="result-val">${d.country_population?Number(d.country_population).toLocaleString():'—'}</span></div>
+        <div class="result-row"><span class="result-key">Area</span><span class="result-val">${d.country_area?Number(d.country_area).toLocaleString()+' km²':'—'}</span></div>
+        <div class="result-row"><span class="result-key">Currency</span><span class="result-val">${esc(d.currency_name||'—')} (${esc(d.currency||'')})</span></div>
+        <div class="result-row"><span class="result-key">Languages</span><span class="result-val">${esc(d.languages||'—')}</span></div>
+        <div class="result-row"><span class="result-key">Calling Code</span><span class="result-val">+${esc(d.country_calling_code||'—')}</span></div>
+        <div class="result-row"><span class="result-key">In EU</span><span class="result-val"><span class="badge ${d.in_eu?'info':'err'}">${d.in_eu?'YES':'NO'}</span></span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Threat Intelligence</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">Abuse Reports</span><span class="result-val"><a href="https://www.abuseipdb.com/check/${esc(d.ip)}" target="_blank" rel="noopener">Check public abuse reports ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Malware Scan</span><span class="result-val"><a href="https://www.virustotal.com/gui/ip-address/${esc(d.ip)}" target="_blank" rel="noopener">Check detection engines ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Open Ports</span><span class="result-val"><a href="https://www.shodan.io/host/${esc(d.ip)}" target="_blank" rel="noopener">View exposed services ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Certificates</span><span class="result-val"><a href="https://search.censys.io/hosts/${esc(d.ip)}" target="_blank" rel="noopener">Certificate & scan data ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Full Report</span><span class="result-val"><a href="https://ipinfo.io/${esc(d.ip)}" target="_blank" rel="noopener">Detailed IP report ↗</a></span></div>
+        <div class="result-row"><span class="result-key">BGP Routing</span><span class="result-val"><a href="https://bgp.he.net/ip/${esc(d.ip)}" target="_blank" rel="noopener">BGP routing info ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Map View</span><span class="result-val"><a href="https://www.google.com/maps?q=${d.latitude},${d.longitude}" target="_blank" rel="noopener">View on Google Maps ↗</a></span></div>
+      </div>
+    </div>`;
+  }catch(e){r.innerHTML=`<div class="panel"><span class="log-err">[!] Error: ${esc(e.message)}</span></div>`;}
+}
+
+async function fetchMyIP(){
+  try{const r=await fetch('https://ipapi.co/json/');const d=await r.json();document.getElementById('ip-input').value=d.ip;}
+  catch(e){alert('Could not fetch your IP.');}
+}
+
+// ══ DOMAIN ══
+async function runDomain(){
+  let domain=document.getElementById('domain-input').value.trim();
+  domain=domain.replace(/^https?:\/\//,'').split('/')[0].toLowerCase().trim();
+  if(!domain){alert('Enter a domain.');return;}
+  const r=document.getElementById('domain-results');
+  r.innerHTML=`<div class="panel"><div class="panel-title"><span class="spin"></span>Analyzing ${esc(domain)}...</div></div>`;
+  const dns={};
+  for(const type of['A','AAAA','MX','NS','TXT','CNAME','SOA']){
+    try{
+      const res=await fetch(`https://dns.google/resolve?name=${domain}&type=${type}`);
+      const d=await res.json();
+      dns[type]=(d.Answer||[]).map(x=>x.data).join('<br/>');
+    }catch(e){dns[type]='—';}
+  }
+  let certs=[];
+  try{
+    const res=await fetch(`https://crt.sh/?q=%.${domain}&output=json`);
+    const d=await res.json();
+    const names=new Set();
+    d.slice(0,60).forEach(c=>(c.name_value||'').split('\n').forEach(n=>{if(n.includes(domain)&&!n.includes('*'))names.add(n.trim());}));
+    certs=[...names].slice(0,30);
+  }catch(e){}
+
+  r.innerHTML=`
+  <div class="panel">
+    <div class="panel-title">Live DNS Records</div>
+    <div class="result-card">
+      <div class="section-head">Address Records</div>
+      <div class="result-row"><span class="result-key">A (IPv4)</span><span class="result-val">${dns.A||'—'}</span></div>
+      <div class="result-row"><span class="result-key">AAAA (IPv6)</span><span class="result-val">${dns.AAAA||'—'}</span></div>
+      <div class="result-row"><span class="result-key">CNAME</span><span class="result-val">${dns.CNAME||'—'}</span></div>
+      <div class="section-head">Mail &amp; Authority</div>
+      <div class="result-row"><span class="result-key">MX (Mail)</span><span class="result-val">${dns.MX||'—'}</span></div>
+      <div class="result-row"><span class="result-key">NS (Nameservers)</span><span class="result-val">${dns.NS||'—'}</span></div>
+      <div class="result-row"><span class="result-key">SOA</span><span class="result-val" style="font-size:11px;">${dns.SOA||'—'}</span></div>
+      <div class="section-head">Security Records</div>
+      <div class="result-row"><span class="result-key">TXT / SPF / DMARC</span><span class="result-val" style="font-size:11px;word-break:break-all;">${dns.TXT||'—'}</span></div>
+    </div>
+  </div>
+  ${certs.length?`
+  <div class="panel">
+    <div class="panel-title">Subdomains from SSL Certificates (${certs.length} found)</div>
+    <div class="result-card">
+      ${certs.map(c=>`<div class="result-row"><span class="result-key">subdomain</span><span class="result-val"><a href="https://${c}" target="_blank" rel="noopener">${esc(c)}</a></span></div>`).join('')}
+    </div>
+  </div>`:''}
+  <div class="grid2">
+    <div class="panel" style="margin-bottom:0;">
+      <div class="panel-title">WHOIS &amp; Registration</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">WHOIS</span><span class="result-val"><a href="https://who.is/whois/${domain}" target="_blank" rel="noopener">Registrant info ↗</a></span></div>
+        <div class="result-row"><span class="result-key">ICANN</span><span class="result-val"><a href="https://lookup.icann.org/en/lookup?name=${domain}" target="_blank" rel="noopener">ICANN lookup ↗</a></span></div>
+        <div class="result-row"><span class="result-key">DNS History</span><span class="result-val"><a href="https://securitytrails.com/domain/${domain}/dns" target="_blank" rel="noopener">Historical records ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Wayback</span><span class="result-val"><a href="https://web.archive.org/web/*/${domain}" target="_blank" rel="noopener">Archived versions ↗</a></span></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-bottom:0;">
+      <div class="panel-title">Security Analysis</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">Malware Scan</span><span class="result-val"><a href="https://www.virustotal.com/gui/domain/${domain}" target="_blank" rel="noopener">Scan domain ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Exposed Services</span><span class="result-val"><a href="https://www.shodan.io/search?query=${domain}" target="_blank" rel="noopener">Shodan scan ↗</a></span></div>
+        <div class="result-row"><span class="result-key">SSL Certificate</span><span class="result-val"><a href="https://www.ssllabs.com/ssltest/analyze.html?d=${domain}" target="_blank" rel="noopener">SSL analysis ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Mail Security</span><span class="result-val"><a href="https://mxtoolbox.com/SuperTool.aspx?action=mx%3A${domain}" target="_blank" rel="noopener">Mail server check ↗</a></span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══ PHONE ══
+function runPhone(){
+  const raw=document.getElementById('phone-input').value.trim();
+  if(!raw){alert('Enter a phone number.');return;}
+  const r=document.getElementById('phone-results');
+  const digits=raw.replace(/\D/g,'');
+  const ccMap={'+1':'United States / Canada','+7':'Russia / Kazakhstan','+20':'Egypt','+27':'South Africa','+30':'Greece','+31':'Netherlands','+32':'Belgium','+33':'France','+34':'Spain','+36':'Hungary','+39':'Italy','+40':'Romania','+41':'Switzerland','+43':'Austria','+44':'United Kingdom','+45':'Denmark','+46':'Sweden','+47':'Norway','+48':'Poland','+49':'Germany','+51':'Peru','+52':'Mexico','+54':'Argentina','+55':'Brazil','+56':'Chile','+57':'Colombia','+58':'Venezuela','+60':'Malaysia','+61':'Australia','+62':'Indonesia','+63':'Philippines','+64':'New Zealand','+65':'Singapore','+66':'Thailand','+81':'Japan','+82':'South Korea','+84':'Vietnam','+86':'China','+90':'Turkey','+91':'India','+92':'Pakistan','+93':'Afghanistan','+94':'Sri Lanka','+95':'Myanmar','+98':'Iran','+212':'Morocco','+213':'Algeria','+216':'Tunisia','+218':'Libya','+220':'Gambia','+221':'Senegal','+234':'Nigeria','+254':'Kenya','+255':'Tanzania','+256':'Uganda','+263':'Zimbabwe','+351':'Portugal','+352':'Luxembourg','+353':'Ireland','+358':'Finland','+380':'Ukraine','+381':'Serbia','+385':'Croatia','+420':'Czech Republic','+421':'Slovakia','+966':'Saudi Arabia','+971':'UAE','+972':'Israel','+973':'Bahrain','+974':'Qatar','+975':'Bhutan','+977':'Nepal','+994':'Azerbaijan','+995':'Georgia','+998':'Uzbekistan'};
+  let cc='unknown',country='Unknown',local=raw;
+  if(raw.startsWith('+')){
+    for(let len=4;len>=1;len--){
+      const test=raw.substring(0,len+1);
+      if(ccMap[test]){cc=test;country=ccMap[test];local=raw.slice(len+1).replace(/\s/g,'');break;}
+    }
+  }
+  const e164=raw.startsWith('+')?raw.replace(/[\s\-\(\)]/g,''):raw;
+  const isMobile=digits.length>=10&&digits.length<=13;
+
+  r.innerHTML=`
+  <div class="grid3" style="margin-bottom:14px;">
+    <div class="stat-box"><div class="stat-val">${esc(cc)}</div><div class="stat-label">Country Code</div></div>
+    <div class="stat-box"><div class="stat-val" style="font-size:14px;">${esc(country.split('/')[0].trim())}</div><div class="stat-label">Country</div></div>
+    <div class="stat-box"><div class="stat-val">${digits.length}</div><div class="stat-sub">${isMobile?'Mobile length':'Check length'}</div><div class="stat-label">Digits</div></div>
+  </div>
+  <div class="grid2">
+    <div class="panel" style="margin-bottom:0;">
+      <div class="panel-title">Number Details</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">Raw Input</span><span class="result-val">${esc(raw)}</span></div>
+        <div class="result-row"><span class="result-key">E.164 Format</span><span class="result-val">${esc(e164)}</span></div>
+        <div class="result-row"><span class="result-key">Digits Only</span><span class="result-val">${esc(digits)}</span></div>
+        <div class="result-row"><span class="result-key">Local Number</span><span class="result-val">${esc(local||'—')}</span></div>
+        <div class="result-row"><span class="result-key">Country Code</span><span class="result-val">${esc(cc)}</span></div>
+        <div class="result-row"><span class="result-key">Country</span><span class="result-val">${esc(country)}</span></div>
+        <div class="result-row"><span class="result-key">Length</span><span class="result-val">${digits.length} digits <span class="badge ${isMobile?'ok':'warn'}">${isMobile?'VALID':'CHECK'}</span></span></div>
+      </div>
+    </div>
+    <div class="panel" style="margin-bottom:0;">
+      <div class="panel-title">Public Lookup</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">Google</span><span class="result-val"><a href="https://www.google.com/search?q=%22${encodeURIComponent(raw)}%22" target="_blank" rel="noopener">Search number ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Caller ID</span><span class="result-val"><a href="https://www.truecaller.com/search/us/${digits}" target="_blank" rel="noopener">Truecaller lookup ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Spam Check</span><span class="result-val"><a href="https://www.shouldianswer.com/phone-number/${digits}" target="_blank" rel="noopener">Spam reports ↗</a></span></div>
+        <div class="result-row"><span class="result-key">NumLookup</span><span class="result-val"><a href="https://www.numlookup.com/?number=${encodeURIComponent(e164)}" target="_blank" rel="noopener">Carrier info ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Sync.me</span><span class="result-val"><a href="https://sync.me/search/?number=${encodeURIComponent(e164)}" target="_blank" rel="noopener">Identity lookup ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Twitter/X</span><span class="result-val"><a href="https://twitter.com/search?q=${encodeURIComponent(raw)}" target="_blank" rel="noopener">Social search ↗</a></span></div>
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══ FULL NAME OSINT ══
+function runOSINT(){
+  const fn=document.getElementById('osint-fn').value.trim();
+  const ln=document.getElementById('osint-ln').value.trim();
+  const country=document.getElementById('osint-country').value.trim();
+  const city=document.getElementById('osint-city').value.trim();
+  if(!fn&&!ln){alert('Enter at least a name.');return;}
+  const full=[fn,ln].filter(Boolean).join(' ');
+  const fe=encodeURIComponent(full),fe2=encodeURIComponent(`"${full}"`);
+  const loc=[city,country].filter(Boolean).join(', ');
+  const c=document.getElementById('osint-results');
+  c.innerHTML=`<div class="panel"><div class="panel-title"><span class="spin"></span>Generating OSINT report for "${esc(full)}"...</div></div>`;
+  setTimeout(()=>{
+    const f=fn.toLowerCase().replace(/\s/g,''),l=ln.toLowerCase().replace(/\s/g,'');
+    const emails=fn&&ln?[`${f}.${l}@gmail.com`,`${f}${l}@gmail.com`,`${f}.${l}@yahoo.com`,`${f}_${l}@hotmail.com`,`${f}.${l}@outlook.com`,`${f[0]}${l}@gmail.com`,`${f}.${l}@icloud.com`,`${f}@${l}.com`]:[];
+    const usernames=fn&&ln?[`${f}${l}`,`${f}.${l}`,`${f}_${l}`,`${f[0]}${l}`,`${l}${fn[0]}`]:[];
+    c.innerHTML=`
+    <div class="panel">
+      <div class="panel-title">Target Summary</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">Full Name</span><span class="result-val" style="font-size:15px;color:#E24B4A;">${esc(full)}</span></div>
+        ${loc?`<div class="result-row"><span class="result-key">Location</span><span class="result-val">${esc(loc)}</span></div>`:''}
+        ${fn?`<div class="result-row"><span class="result-key">First Name</span><span class="result-val">${esc(fn)}</span></div>`:''}
+        ${ln?`<div class="result-row"><span class="result-key">Last Name</span><span class="result-val">${esc(ln)}</span></div>`:''}
+        <div class="result-row"><span class="result-key">Generated</span><span class="result-val">${new Date().toLocaleString()}</span></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Probable Usernames</div>
+      <div class="result-card">
+        ${usernames.map(u=>`<div class="result-row"><span class="result-key">Pattern</span><span class="result-val">${esc(u)}&nbsp;&nbsp;<a href="https://www.google.com/search?q=%22${encodeURIComponent(u)}%22" target="_blank" rel="noopener" style="font-size:11px;">[google]</a>&nbsp;<a href="https://github.com/search?q=${encodeURIComponent(u)}&type=users" target="_blank" rel="noopener" style="font-size:11px;">[github]</a>&nbsp;<a href="https://twitter.com/${encodeURIComponent(u)}" target="_blank" rel="noopener" style="font-size:11px;">[twitter]</a></span></div>`).join('')}
+      </div>
+    </div>
+
+    ${emails.length?`
+    <div class="panel">
+      <div class="panel-title">Probable Email Patterns</div>
+      <div class="result-card">
+        ${emails.map(e=>`<div class="result-row"><span class="result-key">Pattern</span><span class="result-val">${esc(e)}&nbsp;&nbsp;<a href="https://haveibeenpwned.com/account/${encodeURIComponent(e)}" target="_blank" rel="noopener" style="font-size:11px;">[breach check]</a>&nbsp;<a href="https://www.google.com/search?q=%22${encodeURIComponent(e)}%22" target="_blank" rel="noopener" style="font-size:11px;">[google]</a></span></div>`).join('')}
+      </div>
+    </div>`:''}
+
+    <div class="panel">
+      <div class="panel-title">Social Media — Direct Search</div>
+      <div class="result-card">
+        ${[['LinkedIn',`https://www.linkedin.com/search/results/people/?keywords=${fe}`],['Twitter / X',`https://twitter.com/search?q=${fe2}&f=user`],['Facebook',`https://www.facebook.com/search/people/?q=${fe}`],['Instagram',`https://www.instagram.com/web/search/topsearch/?query=${fe}`],['TikTok',`https://www.tiktok.com/search/user?q=${fe}`],['YouTube',`https://www.youtube.com/results?search_query=${fe}`],['Reddit',`https://www.reddit.com/search/?q=${fe2}&type=user`],['GitHub',`https://github.com/search?q=${fe}&type=users`],['Pinterest',`https://www.pinterest.com/search/users/?q=${fe}`],['VK',`https://vk.com/search?c[section]=people&q=${fe}`],['Snapchat',`https://www.snapchat.com/add/${fn.toLowerCase()}${ln.toLowerCase()}`],['Tumblr',`https://www.tumblr.com/search/${fe}`]].map(([n,u])=>`<div class="result-row"><span class="result-key">${n}</span><span class="result-val"><a href="${u}" target="_blank" rel="noopener">Search ${n} ↗</a></span></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title">Google Dork Queries</div>
+      <div class="result-card">
+        ${[[`"${full}" site:linkedin.com`,'LinkedIn profiles'],[`"${full}" site:twitter.com`,'Twitter mentions'],[`"${full}" site:facebook.com`,'Facebook profiles'],[`"${full}" site:instagram.com`,'Instagram'],[`"${full}" filetype:pdf`,'PDF documents'],[`"${full}" email OR contact`,'Contact info'],[`"${full}" phone OR tel`,'Phone numbers'],[`"${full}" address OR location`,'Location data'],[`"${full}" resume OR CV`,'Resume / CV'],[`"${full}" site:pastebin.com`,'Pastebin leaks'],...(loc?[[`"${full}" "${loc}"`,'With location']]:[])].map(([q,d])=>`<div class="result-row"><span class="result-key">${esc(d)}</span><span class="result-val"><a href="https://www.google.com/search?q=${encodeURIComponent(q)}" target="_blank" rel="noopener">${esc(q)} ↗</a></span></div>`).join('')}
+      </div>
+    </div>
+
+    <div class="grid2">
+      <div class="panel">
+        <div class="panel-title">People Search</div>
+        <div class="result-card">
+          ${[['Pipl',`https://pipl.com/search/?q=${fe}`],['Spokeo',`https://www.spokeo.com/search?q=${fe}`],['TruePeopleSearch',`https://www.truepeoplesearch.com/results?name=${fe}`],['Whitepages',`https://www.whitepages.com/name/${fn}-${ln}`],['BeenVerified',`https://www.beenverified.com/people/${fn.toLowerCase()}-${ln.toLowerCase()}/`],['192.com (UK)',`https://www.192.com/people/search/query/${fn}+${ln}/`],['Intelius',`https://www.intelius.com/people-search/results?fn=${encodeURIComponent(fn)}&ln=${encodeURIComponent(ln)}`]].map(([n,u])=>`<div class="result-row"><span class="result-key">${n}</span><span class="result-val"><a href="${u}" target="_blank" rel="noopener">Search ↗</a></span></div>`).join('')}
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-title">News, Images &amp; More</div>
+        <div class="result-card">
+          ${[['Google News',`https://news.google.com/search?q=${fe}`],['Bing News',`https://www.bing.com/news/search?q=${fe}`],['Google Images',`https://www.google.com/search?tbm=isch&q=${fe}`],['Yandex Images',`https://yandex.com/images/search?text=${fe}`],['TinEye Reverse',`https://tineye.com/`],['DuckDuckGo',`https://duckduckgo.com/?q=${fe2}`],['Bing People',`https://www.bing.com/search?q=${fe2}`]].map(([n,u])=>`<div class="result-row"><span class="result-key">${n}</span><span class="result-val"><a href="${u}" target="_blank" rel="noopener">Search ↗</a></span></div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+  },700);
+}
+
+// ══ USERNAME ══
+const platforms=[['GitHub','https://github.com/'],['Twitter/X','https://twitter.com/'],['Instagram','https://www.instagram.com/'],['Reddit','https://www.reddit.com/user/'],['TikTok','https://www.tiktok.com/@'],['YouTube','https://www.youtube.com/@'],['Pinterest','https://www.pinterest.com/'],['Twitch','https://www.twitch.tv/'],['SoundCloud','https://soundcloud.com/'],['Medium','https://medium.com/@'],['Dev.to','https://dev.to/'],['Dribbble','https://dribbble.com/'],['Behance','https://www.behance.net/'],['Keybase','https://keybase.io/'],['GitLab','https://gitlab.com/'],['HackerNews','https://news.ycombinator.com/user?id='],['ProductHunt','https://www.producthunt.com/@'],['Steam','https://steamcommunity.com/id/'],['Patreon','https://www.patreon.com/'],['Linktree','https://linktr.ee/'],['AboutMe','https://about.me/'],['Tumblr','https://www.tumblr.com/'],['Flickr','https://www.flickr.com/people/'],['Vimeo','https://vimeo.com/'],['Snapchat','https://www.snapchat.com/add/'],['Telegram','https://t.me/'],['HackerOne','https://hackerone.com/'],['Bugcrowd','https://bugcrowd.com/'],['Replit','https://replit.com/@'],['CodePen','https://codepen.io/'],['NPM','https://www.npmjs.com/~'],['PyPI','https://pypi.org/user/'],['DockerHub','https://hub.docker.com/u/'],['Bitbucket','https://bitbucket.org/'],['Letterboxd','https://letterboxd.com/'],['Goodreads','https://www.goodreads.com/'],['Chess.com','https://www.chess.com/member/'],['Lichess','https://lichess.org/@/'],['VK','https://vk.com/'],['Quora','https://www.quora.com/profile/'],['Wattpad','https://www.wattpad.com/user/'],['Ask.fm','https://ask.fm/'],['Substack','https://substack.com/@'],['Spotify','https://open.spotify.com/user/'],['Roblox','https://www.roblox.com/user.aspx?username='],['SourceForge','https://sourceforge.net/u/'],['Gravatar','https://www.gravatar.com/'],['Bandcamp','https://bandcamp.com/'],['Last.fm','https://www.last.fm/user/'],['Mastodon','https://mastodon.social/@'],['Xbox','https://account.xbox.com/en-us/profile?gamertag='],['PSN','https://psnprofiles.com/'],['Mixcloud','https://www.mixcloud.com/'],['Twitch Clips','https://www.twitch.tv/'],['Discord','https://discordlookup.com/user/']];
+
+function runUsername(){
+  const u=document.getElementById('uname-input').value.trim();
+  if(!u){alert('Enter a username.');return;}
+  const out=document.getElementById('uname-output');
+  out.innerHTML=`<span class="log-info"><span class="spin"></span>Checking "${esc(u)}" on ${platforms.length} platforms...\n\n</span>`;
+  platforms.forEach(([name,base],i)=>{
+    setTimeout(()=>{
+      out.innerHTML+=`<span class="log-ok">[+] ${name.padEnd(22)}</span><a class="log-link" href="${base+u}" target="_blank" rel="noopener">${base+u}</a>\n`;
+      out.scrollTop=out.scrollHeight;
+      if(i===platforms.length-1)out.innerHTML+=`\n<span class="log-head">[✓] ${platforms.length} platform links generated.</span>`;
+    },i*50);
+  });
+}
+
+// ══ EMAIL ══
+function runEmail(){
+  const email=document.getElementById('email-input').value.trim();
+  if(!email||!email.includes('@')){alert('Enter a valid email.');return;}
+  const r=document.getElementById('email-results');
+  const enc=encodeURIComponent(email);
+  const domain=email.split('@')[1];
+  const user=email.split('@')[0];
+  r.innerHTML=`<div class="panel"><div class="panel-title"><span class="spin"></span>Analyzing ${esc(email)}...</div></div>`;
+  setTimeout(()=>{
+    r.innerHTML=`
+    <div class="grid3" style="margin-bottom:14px;">
+      <div class="stat-box"><div class="stat-val" style="font-size:14px;">${esc(user)}</div><div class="stat-label">Username</div></div>
+      <div class="stat-box"><div class="stat-val" style="font-size:14px;">${esc(domain)}</div><div class="stat-label">Domain</div></div>
+      <div class="stat-box"><div class="stat-val">${email.length}</div><div class="stat-label">Length</div></div>
+    </div>
+    <div class="grid2">
+      <div class="panel" style="margin-bottom:0;">
+        <div class="panel-title">Breach &amp; Leak Check</div>
+        <div class="result-card">
+          <div class="result-row"><span class="result-key">HIBP</span><span class="result-val"><a href="https://haveibeenpwned.com/account/${enc}" target="_blank" rel="noopener">Check breach history ↗</a></span></div>
+          <div class="result-row"><span class="result-key">DeHashed</span><span class="result-val"><a href="https://dehashed.com/search?query=${enc}" target="_blank" rel="noopener">Search leaked data ↗</a></span></div>
+          <div class="result-row"><span class="result-key">IntelX</span><span class="result-val"><a href="https://intelx.io/?s=${enc}" target="_blank" rel="noopener">Intelligence search ↗</a></span></div>
+          <div class="result-row"><span class="result-key">LeakCheck</span><span class="result-val"><a href="https://leakcheck.io/search?query=${enc}" target="_blank" rel="noopener">Leak check ↗</a></span></div>
+          <div class="result-row"><span class="result-key">Snusbase</span><span class="result-val"><a href="https://snusbase.com/search?q=${enc}&type=email" target="_blank" rel="noopener">Database search ↗</a></span></div>
+        </div>
+      </div>
+      <div class="panel" style="margin-bottom:0;">
+        <div class="panel-title">Social &amp; Identity</div>
+        <div class="result-card">
+          <div class="result-row"><span class="result-key">Google</span><span class="result-val"><a href="https://www.google.com/search?q=%22${enc}%22" target="_blank" rel="noopener">Search email ↗</a></span></div>
+          <div class="result-row"><span class="result-key">LinkedIn</span><span class="result-val"><a href="https://www.linkedin.com/search/results/people/?keywords=${enc}" target="_blank" rel="noopener">People search ↗</a></span></div>
+          <div class="result-row"><span class="result-key">Twitter/X</span><span class="result-val"><a href="https://twitter.com/search?q=${enc}" target="_blank" rel="noopener">Social search ↗</a></span></div>
+          <div class="result-row"><span class="result-key">Gravatar</span><span class="result-val"><a href="https://www.gravatar.com/${enc}" target="_blank" rel="noopener">Profile avatar ↗</a></span></div>
+          <div class="result-row"><span class="result-key">Skype</span><span class="result-val"><a href="https://www.skype.com/en/people-search/?query=${enc}" target="_blank" rel="noopener">Skype lookup ↗</a></span></div>
+        </div>
+      </div>
+    </div>
+    <div class="panel">
+      <div class="panel-title">Domain Analysis</div>
+      <div class="result-card">
+        <div class="result-row"><span class="result-key">WHOIS</span><span class="result-val"><a href="https://who.is/whois/${domain}" target="_blank" rel="noopener">Domain registrant ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Malware Scan</span><span class="result-val"><a href="https://www.virustotal.com/gui/domain/${domain}" target="_blank" rel="noopener">Check domain ↗</a></span></div>
+        <div class="result-row"><span class="result-key">Mail Security</span><span class="result-val"><a href="https://mxtoolbox.com/emailheader.aspx" target="_blank" rel="noopener">MX analysis ↗</a></span></div>
+      </div>
+    </div>`;
+  },800);
+}
+
+// ══ DORKS ══
+function runDorks(){
+  const q=document.getElementById('dork-input').value.trim();
+  if(!q){alert('Enter a target.');return;}
+  const out=document.getElementById('dork-output');
+  const qq=`"${q}"`,qe=encodeURIComponent(q),qe2=encodeURIComponent(qq);
+  const dorks=[['General search',qq,`https://www.google.com/search?q=${qe2}`],[`LinkedIn profiles`,`${qq} site:linkedin.com`,`https://www.google.com/search?q=${qe2}+site%3Alinkedin.com`],['Twitter mentions',`${qq} site:twitter.com`,`https://www.google.com/search?q=${qe2}+site%3Atwitter.com`],['Facebook',`${qq} site:facebook.com`,`https://www.google.com/search?q=${qe2}+site%3Afacebook.com`],['Instagram',`${qq} site:instagram.com`,`https://www.google.com/search?q=${qe2}+site%3Ainstagram.com`],['GitHub accounts',`${qq} site:github.com`,`https://www.google.com/search?q=${qe2}+site%3Agithub.com`],['Reddit posts',`${qq} site:reddit.com`,`https://www.google.com/search?q=${qe2}+site%3Areddit.com`],['PDF documents',`${qq} filetype:pdf`,`https://www.google.com/search?q=${qe2}+filetype%3Apdf`],['Word documents',`${qq} filetype:doc OR filetype:docx`,`https://www.google.com/search?q=${qe2}+filetype%3Adoc`],['Contact info',`${qq} email OR contact`,`https://www.google.com/search?q=${qe2}+email+OR+contact`],['Phone numbers',`${qq} phone OR telephone`,`https://www.google.com/search?q=${qe2}+phone+OR+telephone`],['Address / location',`${qq} address OR location`,`https://www.google.com/search?q=${qe2}+address+OR+location`],['Credential leaks',`${qq} password OR leaked`,`https://www.google.com/search?q=${qe2}+password+OR+leaked`],['Resume / CV',`${qq} resume OR CV`,`https://www.google.com/search?q=${qe2}+resume+OR+CV`],['Pastebin',`${qq} site:pastebin.com`,`https://www.google.com/search?q=${qe2}+site%3Apastebin.com`],['About pages',`${qq} inurl:about`,`https://www.google.com/search?q=${qe2}+inurl%3Aabout`],['Cached version',`cache:${q}`,`https://www.google.com/search?q=cache%3A${qe}`],['Related sites',`related:${q}`,`https://www.google.com/search?q=related%3A${qe}`],['Exposed config',`${qq} inurl:config OR inurl:env`,`https://www.google.com/search?q=${qe2}+inurl%3Aconfig+OR+inurl%3Aenv`],['Wayback Machine',`site:web.archive.org "${q}"`,`https://web.archive.org/web/*/${qe}`]];
+  out.innerHTML=`<span class="log-head">═══ DORKS: ${esc(q)} ═══\n\n</span>`;
+  dorks.forEach(([label,d,url])=>{out.innerHTML+=`<span class="log-dim"># ${label}</span>\n<a class="log-link" href="${url}" target="_blank" rel="noopener">${esc(d)}</a>\n\n`;});
+  out.innerHTML+=`<span class="log-ok">[✓] ${dorks.length} dorks ready.</span>`;
+}
+</script>
+</body>
+</html>
