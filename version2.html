@@ -1,0 +1,358 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Red Anaconda — Advanced Tools&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #eee;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 3px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header h1 { color: #e94560; font-size: 2.5em; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav a {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(233, 69, 96, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav a:hover, .nav a.active { background: #e94560; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container { max-width: 1200px; margin: 0 auto; padding: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card h2 { color: #e94560; margin-bottom: 15px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>input, button, select {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>input {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #444;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 250px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button:hover { background: #ff6b6b; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.results {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.5);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 3px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-label { color: #888; font-size: 0.85em; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-value { color: #fff; font-size: 1em; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>footer {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.tool-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;🐍 Red Anaconda&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;Advanced OSINT Tools — Made by azerkash&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="nav"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="index.html"&gt;🌐 IP Lookup&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="advanced.html" class="active"&gt;⚡ Advanced Tools&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="tool-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Username Checker --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;🎭 Username Checker&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="username" placeholder="username" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="checkUsername()"&gt;Check&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="userResults" class="results" style="display: none;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Email Analyzer --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;✉ Email Analyzer&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="email" id="email" placeholder="email@example.com" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="analyzeEmail()"&gt;Analyze&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="emailResults" class="results" style="display: none;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Domain Lookup --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;🔍 Domain Lookup&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="domain" placeholder="example.com" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="lookupDomain()"&gt;Lookup&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="domainResults" class="results" style="display: none;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Phone Analyzer --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;📞 Phone Analyzer&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;select id="phoneCountry" style="width: 100px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="+1"&gt;🇺🇸 +1&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="+33"&gt;🇫🇷 +33&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="+44"&gt;🇬🇧 +44&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="+49"&gt;🇩🇪 +49&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="phone" placeholder="Phone number" style="width: 180px;" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="analyzePhone()"&gt;Analyze&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="phoneResults" class="results" style="display: none;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Google Dorks --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;⚡ Google Dorks Generator&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" id="dorkTarget" placeholder="Target (name, domain, etc.)" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;select id="dorkType"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="person"&gt;Person&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="domain"&gt;Domain&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;option value="email"&gt;Email&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="generateDorks()"&gt;Generate&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="dorkResults" class="results" style="display: none;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Password Generator --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2&gt;🔐 Password Generator&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="number" id="passLength" value="16" min="8" max="64" style="width: 80px;" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button onclick="generatePassword()"&gt;Generate&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div id="passResults" class="results" style="display: none;"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;⚠ FOR EDUCATIONAL &amp; RESEARCH PURPOSES ONLY | Made by azerkash&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Username Checker</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function checkUsername() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const user = document.getElementById('username').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('userResults');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!user) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const platforms = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{name: 'Instagram', url: `https://instagram.com/${user}`},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{name: 'Twitter/X', url: `https://twitter.com/${user}`},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{name: 'GitHub', url: `https://github.com/${user}`},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{name: 'TikTok', url: `https://tiktok.com/@${user}`},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{name: 'Reddit', url: `https://reddit.com/user/${user}`},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{name: 'YouTube', url: `https://youtube.com/@${user}`},</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = '&lt;div class="result-label"&gt;Quick Links:&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>platforms.forEach(p =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>html += `&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="${p.url}" target="_blank" style="color: #e94560;"&gt;${p.name}&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;span style="color: #888; float: right;"&gt;${p.url}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Email Analyzer</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function analyzeEmail() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const email = document.getElementById('email').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('emailResults');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!email || !email.includes('@')) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const [local, domain] = email.split('@');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;Local Part&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-value"&gt;${local}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;Domain&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-value"&gt;${domain}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;Check Breaches&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://haveibeenpwned.com/unifiedsearch/${encodeURIComponent(email)}" target="_blank" style="color: #e94560; margin-right: 15px;"&gt;HaveIBeenPwned&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://intelx.io/?s=${encodeURIComponent(email)}" target="_blank" style="color: #e94560;"&gt;Intelligence X&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Domain Lookup</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function lookupDomain() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const domain = document.getElementById('domain').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('domainResults');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!domain) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;WHOIS Lookup&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://who.is/whois/${domain}" target="_blank" style="color: #e94560; margin-right: 15px;"&gt;who.is&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.whois.com/whois/${domain}" target="_blank" style="color: #e94560;"&gt;whois.com&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;DNS Records&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://dns.google/resolve?name=${domain}&amp;type=A" target="_blank" style="color: #e94560; margin-right: 15px;"&gt;Google DNS&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://crt.sh/?q=${domain}" target="_blank" style="color: #e94560;"&gt;Certificate Search&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Phone Analyzer</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function analyzePhone() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const country = document.getElementById('phoneCountry').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const number = document.getElementById('phone').value.replace(/\D/g, '');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('phoneResults');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!number) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const fullNumber = country + number;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.style.display = 'block';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;Formatted Number&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-value"&gt;${fullNumber}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;Lookup Services&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.truepeoplesearch.com/results?phoneno=${fullNumber}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;TruePeopleSearch&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.whitepages.com/phone/${fullNumber}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Whitepages&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Google Dorks</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function generateDorks() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const target = document.getElementById('dorkTarget').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const type = document.getElementById('dorkType').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('dorkResults');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!target) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let dorks = [];</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (type === 'person') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>dorks = [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`"${target}" filetype:pdf`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`"${target}" site:linkedin.com`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`"${target}" site:facebook.com`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`"${target}" intitle:"resume" OR intitle:"cv"`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`intext:"${target}" filetype:doc`,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (type === 'domain') {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>dorks = [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`site:${target} filetype:pdf`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`site:${target} inurl:admin`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`site:${target} intitle:"index of"`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`site:${target} ext:conf OR ext:config`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`site:pastebin.com "${target}"`,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>dorks = [</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`"${target}"`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`"${target}" site:pastebin.com`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`"${target}" filetype:txt`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>`intext:"${target}"`,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = '&lt;div class="result-label"&gt;Generated Dorks:&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>dorks.forEach(dork =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const link = `https://www.google.com/search?q=${encodeURIComponent(dork)}`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>html += `&lt;div class="result-item" style="font-family: monospace; font-size: 0.9em;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;a href="${link}" target="_blank" style="color: #e94560; text-decoration: none;"&gt;${dork}&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Password Generator</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function generatePassword() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const length = parseInt(document.getElementById('passLength').value);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('passResults');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&amp;*';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>let password = '';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (let i = 0; i &lt; length; i++) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>password += chars.charAt(Math.floor(Math.random() * chars.length));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.style.display = 'block';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;Generated Password&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-value" style="font-family: monospace; font-size: 1.2em; letter-spacing: 2px;"&gt;${password}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;button onclick="navigator.clipboard.writeText('${password}')" style="margin-top: 10px;"&gt;Copy&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>

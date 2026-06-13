@@ -1,0 +1,342 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Red Anaconda — OSINT Suite&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #eee;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 3px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header h1 { color: #e94560; font-size: 2.5em; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav a {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(233, 69, 96, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav a:hover { background: #e94560; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.container { max-width: 1200px; margin: 0 auto; padding: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.card h2 { color: #e94560; margin-bottom: 15px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>input, button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 12px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>input {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #444;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 250px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>button:hover { background: #ff6b6b; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.results {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.5);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-top: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-grid {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-item {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-left: 3px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-label { color: #888; font-size: 0.85em; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.result-value { color: #fff; font-size: 1.1em; font-weight: bold; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.flag { font-size: 2em; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.loading { color: #e94560; text-align: center; padding: 20px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.error { color: #ff4444; background: rgba(255,0,0,0.1); padding: 10px; border-radius: 5px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.success { color: #44ff44; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.badge {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: inline-block;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 3px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.8em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 2px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.badge-red { background: #da3633; color: white; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.badge-yellow { background: #f0883e; color: black; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>footer {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;🐍 Red Anaconda&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;OSINT Intelligence Suite — Made by azerkash&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="nav"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="index.html" class="active"&gt;🌐 IP Lookup&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="advanced.html"&gt;⚡ Advanced Tools&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- IP LOOKUP WITH REAL API --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;🌐 IP Address Intelligence (Real-time API)&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p style="color: #888; margin-bottom: 15px;"&gt;Powered by ip-api.com — Free, no API key needed&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="ipInput" placeholder="Enter IP address (e.g., 8.8.8.8)" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="lookupIP()"&gt;Lookup ↗&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="getMyIP()"&gt;My IP&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="ipResults" class="results"&gt;// Enter an IP for real-time geolocation data...&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- FULL NAME OSINT --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;👤 Full Name OSINT&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="fnFirst" placeholder="First Name" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="text" id="fnLast" placeholder="Last Name" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button onclick="searchFullName()"&gt;Search ↗&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="fnResults" class="results"&gt;// Enter a name to generate OSINT links...&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;⚠ FOR EDUCATIONAL &amp; RESEARCH PURPOSES ONLY | Made by azerkash&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// REAL IP LOOKUP using ip-api.com (Free, no key)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function lookupIP() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const ip = document.getElementById('ipInput').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('ipResults');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!ip) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>results.innerHTML = '&lt;div class="error"&gt;Please enter an IP address&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = '&lt;div class="loading"&gt;🔄 Querying ip-api.com...&lt;/div&gt;';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const response = await fetch(`http://ip-api.com/json/${ip}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const data = await response.json();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>if (data.status !== 'success') {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>results.innerHTML = `&lt;div class="error"&gt;Error: ${data.message || 'Invalid IP'}&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">                </span>const flag = getFlagEmoji(data.countryCode);</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>let html = `</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;IP Address&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.query}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;Country&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;&lt;span class="flag"&gt;${flag}&lt;/span&gt; ${data.country} (${data.countryCode})&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;Region&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.regionName}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;City&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.city} ${data.zip}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;Coordinates&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.lat}, ${data.lon}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;Timezone&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.timezone}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;ISP&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.isp}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;Organization&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.org}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;ASN&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.as || 'N/A'}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-label"&gt;Reverse DNS&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;div class="result-value"&gt;${data.reverse || 'N/A'}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 15px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${data.mobile ? '&lt;span class="badge badge-yellow"&gt;📱 MOBILE CONNECTION&lt;/span&gt;' : ''}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${data.proxy ? '&lt;span class="badge badge-red"&gt;🛡️ PROXY/VPN DETECTED&lt;/span&gt;' : ''}</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${data.hosting ? '&lt;span class="badge badge-red"&gt;☁️ HOSTING/DATACENTER&lt;/span&gt;' : ''}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #444;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div class="result-label"&gt;External Tools&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href="https://www.abuseipdb.com/check/${data.query}" target="_blank" style="color: #e94560; margin-right: 15px;"&gt;AbuseIPDB&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href="https://www.virustotal.com/gui/ip-address/${data.query}" target="_blank" style="color: #e94560; margin-right: 15px;"&gt;VirusTotal&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href="https://ipinfo.io/${data.query}" target="_blank" style="color: #e94560; margin-right: 15px;"&gt;IPinfo&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>&lt;a href="https://www.shodan.io/host/${data.query}" target="_blank" style="color: #e94560;"&gt;Shodan&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`;</p>
+<p class="p2"><span class="Apple-converted-space">                </span></p>
+<p class="p1"><span class="Apple-converted-space">                </span>results.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>results.innerHTML = `&lt;div class="error"&gt;Error: ${err.message}&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function getMyIP() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('ipResults');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = '&lt;div class="loading"&gt;🔄 Detecting your IP...&lt;/div&gt;';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const response = await fetch('http://ip-api.com/json/?fields=query');</p>
+<p class="p1"><span class="Apple-converted-space">                </span>const data = await response.json();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>document.getElementById('ipInput').value = data.query;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>lookupIP();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>results.innerHTML = '&lt;div class="error"&gt;Could not detect IP. Enter manually.&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getFlagEmoji(countryCode) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const codePoints = countryCode</p>
+<p class="p1"><span class="Apple-converted-space">                </span>.toUpperCase()</p>
+<p class="p1"><span class="Apple-converted-space">                </span>.split('')</p>
+<p class="p1"><span class="Apple-converted-space">                </span>.map(char =&gt;<span class="Apple-converted-space">  </span>127397 + char.charCodeAt());</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return String.fromCodePoint(...codePoints);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// FULL NAME OSINT</p>
+<p class="p1"><span class="Apple-converted-space">        </span>function searchFullName() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const first = document.getElementById('fnFirst').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const last = document.getElementById('fnLast').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const results = document.getElementById('fnResults');</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!first || !last) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>results.innerHTML = '&lt;div class="error"&gt;Enter both first and last name&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const query = encodeURIComponent(`${first} ${last}`);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const userQuery = encodeURIComponent(`${first}${last}`);</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let html = `&lt;div class="result-grid"&gt;`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Search Engines</p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;🔍 Search Engines&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.google.com/search?q=${query}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Google&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.bing.com/search?q=${query}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Bing&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://duckduckgo.com/?q=${query}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;DuckDuckGo&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Social Media</p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;👥 Social Media&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.linkedin.com/pub/dir/${first}/${last}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;LinkedIn&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.facebook.com/search/people/?q=${query}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Facebook&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://twitter.com/search?q=${query}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Twitter&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.instagram.com/${userQuery}/" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Instagram&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.tiktok.com/search?q=${query}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;TikTok&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// People Search</p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;📋 People Search&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.spokeo.com/${first}-${last}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Spokeo&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.whitepages.com/name/${first}-${last}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Whitepages&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://www.beenverified.com/app/search/person?fn=${first}&amp;ln=${last}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;BeenVerified&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>&lt;a href="https://pipl.com/search/?q=${query}" target="_blank" style="color: #e94560; display: block; margin: 5px 0;"&gt;Pipl&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Possible Usernames</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const usernames = [</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`${first}${last}`, `${first}.${last}`, `${first}_${last}`,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>`${last}${first}`, `${first[0]}${last}`, `${first}${last}123`</p>
+<p class="p1"><span class="Apple-converted-space">            </span>];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="result-item"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div class="result-label"&gt;🎭 Possible Userernames&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;div style="margin-top: 10px; font-family: monospace;"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>${usernames.map(u =&gt; `&lt;div style="color: #888; margin: 3px 0;"&gt;${u.toLowerCase()}&lt;/div&gt;`).join('')}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>html += `&lt;/div&gt;`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>results.innerHTML = html;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
