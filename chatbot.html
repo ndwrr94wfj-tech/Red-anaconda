@@ -1,0 +1,527 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.5">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!DOCTYPE html&gt;</p>
+<p class="p1">&lt;html lang="en"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;Red Anaconda — AI Assistant&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>* { margin: 0; padding: 0; box-sizing: border-box; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #eee;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Segoe UI', sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 3px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.header h1 { color: #e94560; font-size: 2.5em; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav a {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-decoration: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(233, 69, 96, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 25px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.nav a:hover, .nav a.active { background: #e94560; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>/* Chat Container */</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 900px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 20px auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.4);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-direction: column;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-header {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(233, 69, 96, 0.2);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-avatar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 50px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 50px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: linear-gradient(135deg, #e94560, #ff6b6b);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.5em;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-info h3 { color: #e94560; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-info p { color: #888; font-size: 0.9em; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-messages {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-y: auto;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-height: 60vh;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 15px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: fadeIn 0.3s ease;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes fadeIn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>from { opacity: 0; transform: translateY(10px); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>to { opacity: 1; transform: translateY(0); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message.user { flex-direction: row-reverse; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message-bubble {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>max-width: 70%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>line-height: 1.5;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message.bot .message-bubble {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(233, 69, 96, 0.15);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(233, 69, 96, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom-left-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message.user .message-bubble {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(68, 255, 68, 0.15);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(68, 255, 68, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom-right-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message-avatar {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 40px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-shrink: 0;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message.bot .message-avatar { background: rgba(233, 69, 96, 0.3); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.message.user .message-avatar { background: rgba(68, 255, 68, 0.3); }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-input-area {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.input-container {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-input {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex: 1;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #444;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 30px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.chat-input:focus { border-color: #e94560; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.send-btn {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 50px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 50px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 1.2em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.send-btn:hover { background: #ff6b6b; transform: scale(1.05); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.send-btn:disabled { background: #444; cursor: not-allowed; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.typing-indicator {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.typing-indicator.active { display: flex; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.typing-dots {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.typing-dots span {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 50%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>animation: typing 1.4s infinite;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.typing-dots span:nth-child(2) { animation-delay: 0.2s; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.typing-dots span:nth-child(3) { animation-delay: 0.4s; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>@keyframes typing {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>0%, 60%, 100% { transform: translateY(0); }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>30% { transform: translateY(-10px); }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.settings-panel {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(0,0,0,0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-bottom: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.settings-panel h4 { color: #e94560; margin-bottom: 10px; }</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.api-key-input {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.05);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #444;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin-bottom: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.model-select {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(255,255,255,0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #444;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 5px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.code-block {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: #0d1117;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid #30363d;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 8px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>margin: 10px 0;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-family: 'Courier New', monospace;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>overflow-x: auto;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.code-block code { color: #a5d6ff; }</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>footer {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text-align: center;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #666;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-top: 1px solid #333;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>.quick-prompts {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 10px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>justify-content: center;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.quick-prompt {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>padding: 8px 15px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(233, 69, 96, 0.1);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border: 1px solid rgba(233, 69, 96, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>border-radius: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>color: #e94560;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>font-size: 0.9em;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>transition: all 0.3s;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.quick-prompt:hover {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>background: rgba(233, 69, 96, 0.3);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;🐍 Red Anaconda&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;AI-Powered OSINT Assistant — Made by azerkash&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">    </span></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="nav"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="index.html"&gt;🌐 IP Lookup&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="advanced.html"&gt;⚡ Advanced&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;a href="chatbot.html" class="active"&gt;🤖 AI Assistant&lt;/a&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="chat-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chat-header"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="chat-avatar"&gt;🤖&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="chat-info"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h3&gt;Red Anaconda AI&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p&gt;OSINT Intelligence Assistant&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="settings-panel"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h4&gt;⚙️ Configuration API (Optionnel)&lt;/h4&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input type="password" id="apiKey" class="api-key-input" placeholder="OpenRouter API Key (laisser vide pour mode demo)" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;select id="modelSelect" class="model-select"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="demo"&gt;🎭 Mode Démo (Sans API)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="openai/gpt-3.5-turbo"&gt;🧠 GPT-3.5 Turbo (OpenRouter)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="anthropic/claude-instant-v1"&gt;🧠 Claude Instant (OpenRouter)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="google/gemma-7b-it"&gt;🧠 Gemma 7B (Gratuit)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="mistralai/mistral-7b-instruct"&gt;🧠 Mistral 7B (Gratuit)&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="quick-prompts"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="quick-prompt" onclick="sendQuick('Explique l\'OSINT')"&gt;💡 Qu'est-ce que l'OSINT?&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="quick-prompt" onclick="sendQuick('Comment trouver quelqu\'un avec son IP?')"&gt;🔍 IP → Localisation?&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="quick-prompt" onclick="sendQuick('Génère des Google Dorks pour Facebook')"&gt;⚡ Dorks Facebook&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="quick-prompt" onclick="sendQuick('Aide-moi à analyser un domaine')"&gt;🌐 Analyse domaine&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chat-messages" id="chatMessages"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="message bot"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="message-avatar"&gt;🤖&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="message-bubble"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>Salut! Je suis l'assistant IA de **Red Anaconda**. Je peux t'aider avec:&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>• 🕵️ Techniques OSINT et recherche&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>• 🔍 Analyse d'IPs, domains, usernames&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>• ⚡ Génération de Google Dorks&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>• 🛡️ Conseils en cybersécurité&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>*Mode démo actif. Ajoute une clé API OpenRouter pour un vrai IA.*</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="typing-indicator" id="typingIndicator"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="message-avatar"&gt;🤖&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="typing-dots"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;&lt;span&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chat-input-area"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="input-container"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;input type="text" class="chat-input" id="userInput" placeholder="Pose ta question OSINT..." /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;button class="send-btn" onclick="sendMessage()" id="sendBtn"&gt;➤&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;footer&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p&gt;⚠ FOR EDUCATIONAL PURPOSES ONLY | Made by azerkash&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const chatMessages = document.getElementById('chatMessages');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const userInput = document.getElementById('userInput');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const typingIndicator = document.getElementById('typingIndicator');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const sendBtn = document.getElementById('sendBtn');</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// OSINT Knowledge Base for Demo Mode</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const osintKnowledge = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>'osint': `**OSINT** (Open Source Intelligence) = Renseignement en sources ouvertes.&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>C'est la collecte et l'analyse d'informations provenant de sources publiques:&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• Réseaux sociaux&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• Sites web publics&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• Bases de données publiques&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• Moteurs de recherche&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>**Légalité**: L'OSINT est légal tant qu'on accède à des infos publiques sans piratage.`,</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'ip': `**Localisation par IP** (niveau public):&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Une IP donne:&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>✅ Ville approximative&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>✅ Pays et région&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>✅ Fournisseur internet (ISP)&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>✅ Type de connexion (mobile/VPN)&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>❌ **PAS** l'adresse exacte&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>❌ **PAS** le nom de la personne&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Pour l'identité exacte: requête judiciaire obligatoire.`,</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'dorks': `**Google Dorks** = Recherches avancées:&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>\`site:facebook.com "nom"\` → Profils publics&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>\`filetype:pdf "email"\` → Documents PDF leakés&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>\`intitle:"index of" site:xxx\` → Dossiers exposés&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>\`inurl:admin.php\` → Panels admin&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Utilise l'outil **Advanced → Dorks Generator** sur ce site!`,</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'username': `**Recherche par username:**&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Outils recommandés:&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• WhatsMyName.app (vérification multi-plateformes)&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• Sherlock (outil Python)&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• Namechk.com (disponibilité)&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Technique: essayer les variations:&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>\`user\`, \`user123\`, \`user_official\`, \`realuser\``,</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'email': `**Analyse d'email:**&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>1. **HaveIBeenPwned** → Vérifier breaches&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>2. **Hunter.io** → Trouver format emails d'entreprise&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>3. **EmailRep.io** → Réputation et validité&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Format: \`prenom.nom@domaine.com\``,</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>'default': `Je comprends ta question. Voici quelques ressources OSINT utiles:&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• **OSINT Framework** (osintframework.com)&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• **IntelTechniques** (outils de recherche)&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>• **Bellingcat** (techniques d'investigation)&lt;br&gt;&lt;br&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Pour une réponse plus précise, précise ta question ou utilise le **mode API** avec OpenRouter.`</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function sendQuick(text) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>userInput.value = text;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sendMessage();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function sendMessage() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const text = userInput.value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (!text) return;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Add user message</p>
+<p class="p1"><span class="Apple-converted-space">            </span>addMessage(text, 'user');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>userInput.value = '';</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Show typing</p>
+<p class="p1"><span class="Apple-converted-space">            </span>typingIndicator.classList.add('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sendBtn.disabled = true;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const model = document.getElementById('modelSelect').value;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const apiKey = document.getElementById('apiKey').value;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>let response;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (model === 'demo' || !apiKey) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Demo mode - use knowledge base</p>
+<p class="p1"><span class="Apple-converted-space">                </span>await simulateTyping();</p>
+<p class="p1"><span class="Apple-converted-space">                </span>response = getDemoResponse(text);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>// Real API mode</p>
+<p class="p1"><span class="Apple-converted-space">                </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>response = await callOpenRouter(text, model, apiKey);</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>response = `**Erreur API**: ${err.message}&lt;br&gt;&lt;br&gt;Retour en mode démo.`;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Hide typing and add response</p>
+<p class="p1"><span class="Apple-converted-space">            </span>typingIndicator.classList.remove('active');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>addMessage(response, 'bot');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sendBtn.disabled = false;</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Scroll to bottom</p>
+<p class="p1"><span class="Apple-converted-space">            </span>chatMessages.scrollTop = chatMessages.scrollHeight;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function addMessage(text, sender) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const div = document.createElement('div');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.className = `message ${sender}`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>div.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="message-avatar"&gt;${sender === 'bot' ? '🤖' : '👤'}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div class="message-bubble"&gt;${formatMessage(text)}&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>chatMessages.appendChild(div);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>chatMessages.scrollTop = chatMessages.scrollHeight;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function formatMessage(text) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Format code blocks</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text = text.replace(/```(\w+)?\n([\s\S]*?)```/g, '&lt;div class="code-block"&gt;&lt;code&gt;$2&lt;/code&gt;&lt;/div&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Format inline code</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text = text.replace(/`([^`]+)`/g, '&lt;code style="background: rgba(255,255,255,0.1); padding: 2px 5px; border-radius: 3px;"&gt;$1&lt;/code&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Format bold</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text = text.replace(/\*\*(.*?)\*\*/g, '&lt;strong style="color: #e94560;"&gt;$1&lt;/strong&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>// Format newlines</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text = text.replace(/\n/g, '&lt;br&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return text;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function simulateTyping() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>await sleep(1000 + Math.random() * 1000);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function getDemoResponse(text) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const lower = text.toLowerCase();</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (lower.includes('osint') || lower.includes('c\'est quoi')) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return osintKnowledge['osint'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (lower.includes('ip') || lower.includes('adresse')) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return osintKnowledge['ip'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (lower.includes('dork') || lower.includes('google')) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return osintKnowledge['dorks'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (lower.includes('username') || lower.includes('pseudo')) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return osintKnowledge['username'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else if (lower.includes('email') || lower.includes('mail')) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return osintKnowledge['email'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>return osintKnowledge['default'];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>async function callOpenRouter(message, model, apiKey) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>method: 'POST',</p>
+<p class="p1"><span class="Apple-converted-space">                </span>headers: {</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>'Content-Type': 'application/json',</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>'Authorization': `Bearer ${apiKey}`,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>'HTTP-Referer': window.location.href,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>'X-Title': 'Red Anaconda OSINT'</p>
+<p class="p1"><span class="Apple-converted-space">                </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                </span>body: JSON.stringify({</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>model: model,</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>messages: [</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>role: 'system',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>content: 'Tu es un assistant OSINT expert. Tu aides les utilisateurs avec des techniques de renseignement en sources ouvertes de manière éthique et légale. Tu ne aides jamais à accéder illégalement à des données privées.'</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>role: 'user',</p>
+<p class="p1"><span class="Apple-converted-space">                            </span>content: message</p>
+<p class="p1"><span class="Apple-converted-space">                        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>]</p>
+<p class="p1"><span class="Apple-converted-space">                </span>})</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><span class="Apple-converted-space">            </span></p>
+<p class="p1"><span class="Apple-converted-space">            </span>const data = await response.json();</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return data.choices[0].message.content;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>function sleep(ms) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return new Promise(resolve =&gt; setTimeout(resolve, ms));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><span class="Apple-converted-space">        </span></p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Enter key to send</p>
+<p class="p1"><span class="Apple-converted-space">        </span>userInput.addEventListener('keypress', (e) =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (e.key === 'Enter') sendMessage();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
